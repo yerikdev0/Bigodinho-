@@ -1,66 +1,89 @@
--- LocalScript em StarterGui
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAMORADOS?</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
--- Criar ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "RebirthGui"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at top, #ffb6c1, #ff69b4, #ff1493);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      animation: backgroundMove 10s infinite alternate ease-in-out;
+    }
 
--- Criar Frame (janela)
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 240, 0, 150)
-frame.Position = UDim2.new(0.35, 0, 0.3, 0)
-frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-frame.BorderSizePixel = 0
-frame.Active = true
-frame.Draggable = true
-frame.Parent = screenGui
+    @keyframes backgroundMove {
+      0% { background-position: left top; }
+      100% { background-position: right bottom; }
+    }
 
--- Título
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 30)
-title.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-title.BorderSizePixel = 0
-title.Text = "Painel de Rebirth"
-title.TextColor3 = Color3.new(1,1,1)
-title.Font = Enum.Font.SourceSansBold
-title.TextSize = 18
-title.Parent = frame
+    h1 {
+      font-size: 3rem; /* menor agora */
+      color: white;
+      text-shadow: 0 0 15px #fff, 0 0 30px #ff69b4, 0 0 60px #ff1493;
+      animation: pulse 2s infinite alternate;
+      text-align: center;
+    }
 
--- Caixa de texto para digitar o valor
-local textBox = Instance.new("TextBox")
-textBox.Size = UDim2.new(0.8, 0, 0.25, 0)
-textBox.Position = UDim2.new(0.1, 0, 0.4, 0)
-textBox.PlaceholderText = "Digite o valor..."
-textBox.Text = ""
-textBox.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-textBox.TextColor3 = Color3.new(1,1,1)
-textBox.Font = Enum.Font.SourceSans
-textBox.TextSize = 16
-textBox.ClearTextOnFocus = false
-textBox.Parent = frame
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+        text-shadow: 0 0 15px #fff, 0 0 30px #ff69b4, 0 0 60px #ff1493;
+      }
+      to {
+        transform: scale(1.05);
+        text-shadow: 0 0 30px #fff, 0 0 50px #ff69b4, 0 0 100px #ff1493;
+      }
+    }
 
--- Botão
-local button = Instance.new("TextButton")
-button.Size = UDim2.new(0.8, 0, 0.25, 0)
-button.Position = UDim2.new(0.1, 0, 0.7, 0)
-button.Text = "Aplicar Rebirth"
-button.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
-button.TextColor3 = Color3.new(1,1,1)
-button.Font = Enum.Font.SourceSansBold
-button.TextSize = 16
-button.Parent = frame
+    .heart {
+      position: absolute;
+      color: white;
+      font-size: 1.2rem;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
 
--- Clique do botão
-button.MouseButton1Click:Connect(function()
-	local player = game.Players.LocalPlayer
-	local stats = player:FindFirstChild("leaderstats")
+    @keyframes float {
+      from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>NAMORADOS?</h1>
 
-	if stats and stats:FindFirstChild("Rebirth") then
-		local num = tonumber(textBox.Text)
-		if num then
-			stats.Rebirth.Value = num
-		else
-			warn("Digite um número válido!")
-		end
-	end
-end)
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
